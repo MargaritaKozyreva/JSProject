@@ -1235,6 +1235,7 @@ export const users: Array<User> = [
     }]
 
 export const getUserById = (_id: number) => {
+    console.log(_id)
     const usersArray = users.filter((user) => Number(user.id) === Number(_id));
     if (usersArray.length === 0) {
         return null
