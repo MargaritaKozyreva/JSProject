@@ -3,6 +3,50 @@ import { getUserById, users } from './userData'
 
 export const handlers = [
     // Handles a POST /login request
+    rest.get('http://kozyreva.api/auth/me', (req, res, ctx) => {
+        // Persist user's authentication in the session
+
+        const curUser = getUserById(1)
+        if (curUser !== null) {
+            return res(
+                // Respond with a 200 status code
+                ctx.json({
+                    success: false,
+                    data: null,
+                }),
+            )
+        }
+        return res(
+            // Respond with a 200 status code
+            ctx.json({
+                success: true,
+                data: curUser,
+            }),
+        )
+
+    }),
+    rest.get('http://kozyreva.api/profile/:userId', (req, res, ctx) => {
+        // Persist user's authentication in the session
+        const { userId } = req.params
+        const curUser = getUserById(userId)
+        if (curUser === null) {
+            return res(
+                // Respond with a 200 status code
+                ctx.json({
+                    success: false,
+                    data: null,
+                }),
+            )
+        }
+        return res(
+            // Respond with a 200 status code
+            ctx.json({
+                success: true,
+                data: curUser,
+            }),
+        )
+
+    }),
     rest.post('http://kozyreva.api/login', (req, res, ctx) => {
         // Persist user's authentication in the session
         sessionStorage.setItem('is-authenticated', 'true')
@@ -28,7 +72,7 @@ export const handlers = [
     rest.get('http://kozyreva.api/user/:userId', (req, res, ctx) => {
         const { userId } = req.params
         return res(
-            ctx.json(getUserById(users, userId)),
+            ctx.json(getUserById(userId)),
         )
     }),
 ]
