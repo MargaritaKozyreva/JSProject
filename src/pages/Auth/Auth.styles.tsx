@@ -4,7 +4,7 @@ export const FormContainer = styled.div`
   width: 300px;
   margin: 50px auto;
 `;
-export const FormGroup = styled.div`
+export const FormGroup = styled.form`
   display: block;
 `;
 

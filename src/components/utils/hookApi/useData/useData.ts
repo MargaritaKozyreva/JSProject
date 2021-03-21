@@ -1,11 +1,27 @@
 import { useState, useEffect } from "react";
 
-async function req<T>(endPoint: string): Promise<T> {
-  const uri = `http://kozyreva.api/${endPoint}`;
-  return await fetch(uri).then(res => res.json());
+const fetchHeaders = (method: string, data: any) => {
+  const fetchObj: RequestInit = {
+    method: method,
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {'Content-Type': 'application/json'},
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify(data)
+  }
+
+  return fetchObj
 }
 
-export function useData<T>(endPoint: string){
+async function req<T>(method = "GET", endPoint: string, query: any = null): Promise<T> {
+  const uri = `http://kozyreva.api/${endPoint}`;
+  return await fetch(uri, fetchHeaders(method, query)).then(res => res.json());
+}
+
+export function useData<T>(method = "GET", endPoint: string, query: any) {
+
 
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -14,7 +30,7 @@ export function useData<T>(endPoint: string){
   useEffect(() => {
     const getData = async (): Promise<void> => {
       try {
-        const data = await req<T>(endPoint);
+        const data = await req<T>(method, endPoint, query);
 
         setData(data);
       } catch (e) {
@@ -25,7 +41,7 @@ export function useData<T>(endPoint: string){
     };
 
     getData();
-  }, []);
+  }, [query]);
 
   return { data, isLoading, error };
 };

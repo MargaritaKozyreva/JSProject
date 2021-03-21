@@ -5,32 +5,13 @@ import useData from "../../components/utils/hookApi/useData/useData";
 import { User } from "../../mocks/userData";
 import UserProfile from "./UserProfile";
 
-function useProfileUser(id: string = "1") {
-  const { data, isLoading, error } = useData<Response<User>>(`profile/${id}`);
-
-  return { data, isLoading, error };
+interface UserProfileContainerProps {
+  [key: string]: any;
+  user: User;
 }
 
-const UserProfileContainer: React.FC = (): JSX.Element => {
-  let { id } = useParams<any>();
-
-  const { data, isLoading, error } = useProfileUser(id);
-
-  console.log(data)
-
-  if (isLoading) {
-    return <div>"Loading..."</div>;
-  }
-
-  if (error) {
-    return <div>`Error: ${error.message}`</div>;
-  }
-
-  return data?.success ? (
-    <UserProfile user={data.data} />
-  ) : (
-    <div>User Not Defined</div>
-  );
+const UserProfileContainer: React.FC<UserProfileContainerProps> = ({user}): JSX.Element => {
+  return <UserProfile user={user} />;
 };
 
 export default UserProfileContainer;

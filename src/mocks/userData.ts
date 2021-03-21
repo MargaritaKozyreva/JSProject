@@ -1,7 +1,7 @@
 export interface User {
     id?: string | null,
-    login: string,
-    password: string,
+    login: string | null,
+    password: string | null,
     age?: number | null,
     fullname?: string | null,
     position_name?: string | null,
@@ -1234,9 +1234,9 @@ export const users: Array<User> = [
         "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/depaulawagner/128.jpg"
     }]
 
-export const getUserById = (_id: number) => {
-    console.log(_id)
-    const usersArray = users.filter((user) => Number(user.id) === Number(_id));
+export const getUserByLogin = (login: string) => {
+
+    const usersArray = users.filter((user) => String(user.login) === String(login));
     if (usersArray.length === 0) {
         return null
     }

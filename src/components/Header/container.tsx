@@ -4,23 +4,24 @@ import { User } from "../../mocks/userData";
 import Auth from "../../pages/Auth/Auth";
 import useData from "../utils/hookApi/useData/useData";
 
-function useAuthenticatedUser() {
-  const { data, isLoading, error } = useData<Response<User>>("auth/me");
-  return { data, isLoading, error };
-}
+// function useAuthenticatedUser() {
+//   const { data, isLoading, error } = useData<Response<User>>("login/", "");
+//   return { data, isLoading, error };
+// }
 
 const HeaderContainer: any = (props: any) => {
-  const { data, isLoading, error } = useAuthenticatedUser();
+  return <div></div>
+  // const { data, isLoading, error } = useAuthenticatedUser();
 
-  if (isLoading) {
-    return "Loading...";
-  }
+  // if (isLoading) {
+  //   return "Loading...";
+  // }
 
-  if (error) {
-    return `Error: ${error.message}`;
-  }
+  // if (error) {
+  //   return `Error: ${error.message}`;
+  // }
 
-  return data?.success ? <Header {...props} /> : <Auth />;
+  // return data?.success ? <Header {...props} /> : <Auth />;
 };
 
 export default HeaderContainer;

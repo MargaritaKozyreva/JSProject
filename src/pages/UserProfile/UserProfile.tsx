@@ -7,7 +7,7 @@ interface UserProps {
 }
 
 const UserProfile: React.FC<UserProps> = ({ user }): JSX.Element => {
-  console.log(user)
+
   return <div>
     <h3>Профиль сотрудника</h3>
     <p>email: {user.email}</p>

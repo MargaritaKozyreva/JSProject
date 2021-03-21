@@ -11,7 +11,8 @@ interface MainProps {
   user: User;
 }
 
-const Main: React.FC<MainProps> = ({user}): any => {
+const Main: React.FC<MainProps> = ({ user }): any => {
+
   return (
     <div>
       <Router>
@@ -28,7 +29,10 @@ const Main: React.FC<MainProps> = ({user}): any => {
           </nav>
         </HeaderContainer>
         <Route path="/" exact render={() => <Home />} />
-        <Route path="/profile/:id?" render={() => <UserProfileContainer />} />
+        <Route
+          path="/profile"
+          render={() => <UserProfileContainer user={user} />}
+        />
       </Router>
       <Footer />
     </div>
