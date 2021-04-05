@@ -22,7 +22,6 @@ async function req<T>(method = "GET", endPoint: string, query: any = null): Prom
 
 export function useData<T>(method = "GET", endPoint: string, query: any) {
 
-
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error>();

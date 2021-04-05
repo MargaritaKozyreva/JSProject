@@ -1,8 +1,6 @@
-import { User } from "../../mocks/userData";
+import { SET_USER_DATA } from "redux/types";
+import { User } from "types/types";
 import { Action } from "../actions/actions";
-import { AuthState } from "./store";
-
-const SET_USER_DATA = "SET_USER_DATA";
 
 const initialState: User = {
   login: "",
@@ -25,11 +23,6 @@ const authReducer = (state = initialState, action: Action) => {
   }
 };
 
-export const setUserData = (payload: AuthState): Action => {
-  return {
-    type: 'SET_USER_DATA',
-    payload
-  }
-}
+
 
 export default authReducer;

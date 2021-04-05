@@ -1,17 +1,30 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import UserProfileContainer from "../UserProfile/UserProfileContainer";
-import Home from "../Home";
-import Footer from "../Footer";
-import { User } from "../../mocks/userData";
-import HeaderContainer from "../../components/Header/container";
+import Home from "../Auth";
+import Footer from "components/Footer";
+import { ITheme, User } from "types/types";
+import HeaderContainer from "components/Header/container";
+import { StoreState } from "redux/reducers/store";
+import { changeTheme } from "redux/actions/actions";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state: StoreState, ownProps: object) => {
+  return { ...state.profile, ...state.theme, ...ownProps };
+};
+const mapDispatchToProps = (dispatch: Function) => {
+  return {
+    changeTheme(newTheme: ITheme) {
+      dispatch(changeTheme(newTheme));
+    },
+  };
+};
 
 interface MainProps {
   [key: string]: any;
-  user: User;
 }
 
-const Main: React.FC<MainProps> = ({ user }): any => {
+const Main: React.FC<MainProps> = (props): any => {
 
   return (
     <div>
@@ -28,10 +41,10 @@ const Main: React.FC<MainProps> = ({ user }): any => {
             </ul>
           </nav>
         </HeaderContainer>
-        <Route path="/" exact render={() => <Home />} />
+        <Route path="/" exact render={() => <UserProfileContainer {...props} />} />
         <Route
           path="/profile"
-          render={() => <UserProfileContainer user={user} />}
+          render={() => <UserProfileContainer {...props} />}
         />
       </Router>
       <Footer />
@@ -39,4 +52,6 @@ const Main: React.FC<MainProps> = ({ user }): any => {
   );
 };
 
-export default Main;
+const MainContainer = connect(mapStateToProps, mapDispatchToProps)(Main);
+export default MainContainer;
+

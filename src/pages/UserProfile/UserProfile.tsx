@@ -1,17 +1,16 @@
 import React from "react";
-import { User } from "../../mocks/userData";
+import { User } from "types/types";
 
 interface UserProps {
   [key: string]: any;
-  user: User;
 }
 
-const UserProfile: React.FC<UserProps> = ({ user }): JSX.Element => {
+const UserProfile: React.FC<UserProps> = (props): JSX.Element => {
 
   return <div>
     <h3>Профиль сотрудника</h3>
-    <p>email: {user.email}</p>
-    <p>fullname: {user.fullname}</p>
+    <p>email: {props.email}</p>
+    <p>fullname: {props.fullname}</p>
   </div>;
 };
 

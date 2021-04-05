@@ -1,11 +1,15 @@
-import { createStore, combineReducers } from 'redux';
-import { User } from '../../mocks/userData';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk'
+import logger from 'redux-logger'
+import { ITheme, User } from "types/types";
 import authReducer from './auth-reducer';
 import profileReducer from './profile-reducer';
+import themeReducer from './theme-reducer';
 
 export interface StoreState {
   auth: AuthState,
-  profile: User
+  profile: User,
+  theme: ITheme
 }
 
 export interface AuthState {
@@ -15,9 +19,10 @@ export interface AuthState {
 
 let reducers = combineReducers<StoreState>({
   auth: authReducer,
-  profile: profileReducer
+  profile: profileReducer,
+  theme: themeReducer
 });
 
-let store = createStore(reducers)
+let store = createStore(reducers, applyMiddleware(thunk, logger))
 
 export default store

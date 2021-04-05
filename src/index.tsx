@@ -4,7 +4,7 @@ import store from "./redux/reducers/store";
 import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
-import AppContainer from "./components/App/container/AppContainer";
+import AppContainer from "./components/App/App";
 
 if (process.env.NODE_ENV === "development") {
   const { worker } = require("./mocks/browser");

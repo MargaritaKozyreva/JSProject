@@ -1,12 +1,26 @@
 import React, { useState } from "react";
 import { FormContainer, FormGroup, Label, Input, Button } from "./Auth.styles";
+import { connect } from "react-redux";
+import { AuthState, StoreState } from "redux/reducers/store";
+import { setUserData } from "redux/actions/actions";
+
+const mapStateToProps = (state: StoreState, ownProps: object) => {
+  return { ...state.auth, ...ownProps };
+};
+const mapDispatchToProps = (dispatch: Function) => {
+  return {
+    setUserData(data: AuthState) {
+      dispatch(setUserData(data));
+    },
+  };
+};
 
 export interface AuthProps {
   login: string;
   password: string;
 }
 
-const Auth: React.FC<any> = (props: any) => {
+const AuthContainer: React.FC<any> = (props: any) => {
   const { setUserData, success } = props;
   const [formValue, setFormValue] = useState<AuthProps>({
     login: "",
@@ -16,7 +30,7 @@ const Auth: React.FC<any> = (props: any) => {
   return (
     <FormContainer>
       <FormGroup>
-        { !success ? 'Вы не зарегестрированы': 'Выполняется вход...'}
+        {!success ? "Вы не зарегестрированы" : "Выполняется вход..."}
         <Label htmlFor="login">Логин</Label>
         <Input
           type="text"
@@ -61,4 +75,5 @@ const Auth: React.FC<any> = (props: any) => {
   );
 };
 
+const Auth = connect(mapStateToProps, mapDispatchToProps)(AuthContainer);
 export default Auth;

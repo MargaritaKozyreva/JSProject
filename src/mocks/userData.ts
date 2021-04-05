@@ -1,22 +1,4 @@
-export interface User {
-    id?: string | null,
-    login: string | null,
-    password: string | null,
-    age?: number | null,
-    fullname?: string | null,
-    position_name?: string | null,
-    gender?: string | null,
-    subdivision?: string | null,
-    company?: string | null,
-    email?: string | null,
-    phone?: string | null,
-    address?: string | null,
-    about?: string | null,
-    registered?: number | null,
-    birthday?: string | null,
-    avatar?: string | null,
-    isAdmin?: boolean | null
-}
+import { User } from "types/types";
 
 export const users: Array<User> = [
     {
